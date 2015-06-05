@@ -1,0 +1,12 @@
+project BBS is
+
+   package Ide is
+      for Vcs_Kind use "Git";
+   end Ide;
+
+   package Pretty_Printer is
+      for Default_Switches ("ada") use ("-i2");
+   end Pretty_Printer;
+
+end BBS;
+
