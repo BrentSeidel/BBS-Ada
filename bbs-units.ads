@@ -96,5 +96,19 @@ package BBS.units is
    function to_m_s(vel : vel_knots) return vel_m_s;
    function to_m_s(vel : vel_km_h) return vel_m_s;
    function to_m_s(vel : vel_mph) return vel_m_s;
+   --
+   function "*"(Left : vel_m_s; Right : Duration) return len_m;
+   --
+   -- Acceleration types.  Prefix := "accel".  Base unit is m/(s^2)
+   --
+   -- acceleration in meters per second squared
+   type accel_m_s2 is new Float;
+   -- acceleration in units of Earth gravity
+   type accel_g is new Float;
+   --
+   function to_m_s2(accel : accel_g) return accel_m_s2;
+   function to_g(accel : accel_m_s2) return accel_g;
+   --
+   function "*"(Left : accel_m_s2; Right : Duration) return vel_m_s;
 
 end;

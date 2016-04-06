@@ -3,6 +3,7 @@ package body BBS.units is
    -- Unit conversion routines.  Most of these are pretty simple.  Add as needed.
    -- The conversion factors come from a variety of sources and definitions.
    --
+   -- -------------------------------------------------------------------------
    -- *** Distance conversions ***
    --
    function to_feet(dist : len_m) return len_ft is
@@ -14,7 +15,7 @@ package body BBS.units is
    begin
       return len_m(float(dist) / 3.28084);
    end;
-   --
+   -- -------------------------------------------------------------------------
    -- *** Temperature conversions ***
    --
    function to_Farenheit(temp : temp_c) return temp_f is
@@ -36,7 +37,7 @@ package body BBS.units is
    begin
       return temp_c(float(temp) - 273.15);
    end;
-   --
+   -- -------------------------------------------------------------------------
    -- *** Pressure conversions ***
    --
    function to_milliBar(pressure : press_p) return press_mb is
@@ -68,7 +69,7 @@ package body BBS.units is
    begin
       return press_p(float(pressure) * 3386.39);
    end;
-   --
+   -- -------------------------------------------------------------------------
    -- *** Velocity conversions ***
    --
    function to_mph(vel : vel_m_s) return vel_mph is
@@ -78,7 +79,7 @@ package body BBS.units is
    --
    function to_km_h(vel : vel_m_s) return vel_km_h is
    begin
-      return vel_km_h(float(vel) * 3600.0/1000.0);
+      return vel_km_h(float(vel) * 3.6);
    end;
    --
    function to_knots(vel : vel_m_s) return vel_knots is
@@ -92,12 +93,39 @@ package body BBS.units is
    end;
    function to_m_s(vel : vel_km_h) return vel_m_s is
    begin
-      return vel_m_s(float(vel) * 1000.0/3600.0);
+      return vel_m_s(float(vel) / 3.6);
    end;
    --
    function to_m_s(vel : vel_mph) return vel_m_s is
    begin
       return vel_m_s(float(vel) / 2.2369_3629_11);
    end;
+   --
+   -- Velocity functions
+   --
+   function "*"(Left : vel_m_s; Right : Duration) return len_m is
+   begin
+      return len_m(Float(Left) * Float(Right));
+   end;
+   -- -------------------------------------------------------------------------
+   -- *** Acceleration conversions ***
+   --
+   function to_m_s2(accel : accel_g) return accel_m_s2 is
+   begin
+      return accel_m_s2(Float(accel) * 9.80665);
+   end;
+   --
+   function to_g(accel : accel_m_s2) return accel_g is
+   begin
+      return accel_g(Float(accel) / 9.80665);
+   end;
+   --
+   -- Acceleration functions
+   --
+   function "*"(Left : accel_m_s2; Right : Duration) return vel_m_s is
+   begin
+      return vel_m_s(Float(Left) * Float(Right));
+   end;
+
 
 end;
