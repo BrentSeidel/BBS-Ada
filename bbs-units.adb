@@ -126,6 +126,29 @@ package body BBS.units is
    begin
       return vel_m_s(Float(Left) * Float(Right));
    end;
-
+   -- -------------------------------------------------------------------------
+   -- *** Angle conversions ***
+   --
+   function to_degrees(ang : ang_r) return ang_d is
+   begin
+      return ang_d(float(ang) * 180.0 / Ada.Numerics.Pi);
+   end;
+   --
+   function to_radians(ang : ang_d) return ang_r is
+   begin
+      return ang_r(float(ang) * Ada.Numerics.Pi / 180.0);
+   end;
+   -- -------------------------------------------------------------------------
+   -- *** Rotation rate conversions ***
+   --
+   function to_r_s(rot : rot_d_s) return rot_r_s is
+   begin
+      return rot_r_s(float(rot) * Ada.Numerics.Pi / 180.0);
+   end;
+   --
+   function to_d_s(rot : rot_r_s) return rot_d_s is
+   begin
+      return rot_d_s(float(rot) * 180.0 / Ada.Numerics.Pi);
+   end;
 
 end;

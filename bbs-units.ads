@@ -30,7 +30,20 @@
 -- valid in indentifiers, it will be replaces by an underscore (eg vel_m_s) for
 -- velocity in meters per second.
 --
+with Ada.Numerics;
 package BBS.units is
+   --
+   -- Index of type prefixes:
+   -- Length types.  Prefix := "len".  Base unit is meters
+   -- Temperature types.  Prefix := "temp".  Base unit is celsius
+   -- Pressure types.  Prefix := "press".  Base unit is pascal
+   -- Velocity types.  Prefix := "vel".  Base unit is m/s
+   -- Acceleration types.  Prefix := "accel".  Base unit is m/(s^2).
+   -- Angular type.  Prefix := "ang".  Base unit is radians.
+   -- Rotation rate types.  Prefix := "rot".  Base unit is radians/second
+   -- Magnetic types.  Prefix := "mag".  Base unit is Gauss.
+   -- Electromotive force types.  Prefix := "emf".  Base unit is Volt.
+   --
    --
    -- Time types
    --
@@ -99,7 +112,7 @@ package BBS.units is
    --
    function "*"(Left : vel_m_s; Right : Duration) return len_m;
    --
-   -- Acceleration types.  Prefix := "accel".  Base unit is m/(s^2)
+   -- Acceleration types.  Prefix := "accel".  Base unit is m/(s^2).
    --
    -- acceleration in meters per second squared
    type accel_m_s2 is new Float;
@@ -110,5 +123,37 @@ package BBS.units is
    function to_g(accel : accel_m_s2) return accel_g;
    --
    function "*"(Left : accel_m_s2; Right : Duration) return vel_m_s;
-
+   --
+   -- Angular type.  Prefix := "ang".  Base unit is radians.
+   --
+   -- angle in radians
+   type ang_r is new Float;
+   -- angle in degrees
+   type ang_d is new Float;
+   --
+   function to_degrees(ang : ang_r) return ang_d;
+   function to_radians(ang : ang_d) return ang_r;
+   --
+   -- Rotation rate types.  Prefix := "rot".  Base unit is radians/second
+   --
+   -- rotation in radians per second
+   type rot_r_s is new Float;
+   -- rotation in degrees per second
+   type rot_d_s is new Float;
+   --
+   function to_r_s(rot : rot_d_s) return rot_r_s;
+   function to_d_s(rot : rot_r_s) return rot_d_s;
+   --
+   -- Magnetic types.  Prefix := "mag".  Base unit is Gauss.
+   --
+   -- magnetic field in gauss
+   type mag_g is new Float;
+   -- With only one unit, there are no conversions functions.
+   --
+   -- Electromotive force types.  Prefix := "emf".  Base unit is Volt.
+   --
+   -- electromotive force in volts
+   --
+   type emf_v is new Float;
+   -- With only one unit, there are no conversion functions.
 end;
