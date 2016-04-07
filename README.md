@@ -24,6 +24,7 @@ function to_fur_ftn(vel : vel_m_s) return vel_fur_ftn;
 Then add the following two functions to the appropriate section in the .adb file
 (actually, you can add them most any where, but it will be easier to find if you
 put them with the other velocity conversions):
+
     -- Conversion factor found by google.
     function to_m_s(vel : vel_fur_ftn) return vel_m_s is
     begin
