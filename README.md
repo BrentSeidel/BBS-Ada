@@ -17,9 +17,10 @@ is even larger, it is inevitable that some units are left out.  The good news is
 that it's fairly easy to grab the code and add your favorites.  For example if you
 want to add furlongs per fortnight as a velocity, you would add the following to
 the .ads file:
-type vel_fur_ftn is new Float;
-function to_m_s(vel : vel_fur_ftn) return vel_m_s;
-function to_fur_ftn(vel : vel_m_s) return vel_fur_ftn;
+
+    type vel_fur_ftn is new Float;
+    function to_m_s(vel : vel_fur_ftn) return vel_m_s;
+    function to_fur_ftn(vel : vel_m_s) return vel_fur_ftn;
 
 Then add the following two functions to the appropriate section in the .adb file
 (actually, you can add them most any where, but it will be easier to find if you
