@@ -27,8 +27,9 @@
 -- The naming convention of the units is a prefix indicating what kind of unit,
 -- an underscore, and the the S.I. code for the unit (if applicable) or a common
 -- abbreviation (eg. vel_mph for velocity in mile per hour).  Since "/" is not
--- valid in indentifiers, it will be replaces by an underscore (eg vel_m_s) for
--- velocity in meters per second.
+-- valid in indentifiers, it will be replaced by an underscore (eg vel_m_s) for
+-- velocity in meters per second.  Exponentiation is indicated by a number (eg
+-- accel_m_s2).
 --
 with Ada.Numerics;
 package BBS.units is
@@ -43,6 +44,8 @@ package BBS.units is
    -- Rotation rate types.  Prefix := "rot".  Base unit is radians/second
    -- Magnetic types.  Prefix := "mag".  Base unit is Gauss.
    -- Electromotive force types.  Prefix := "emf".  Base unit is Volt.
+   -- Electrical current types.  Prefix := "curr".  Base unit is Amper.
+   -- Electrical resistance types.  Prefix := "res".  Base unit is Ohms.
    --
    --
    -- Time types
@@ -59,6 +62,9 @@ package BBS.units is
    --
    function to_feet(dist : len_m) return len_ft;
    function to_meters(dist : len_ft) return len_m;
+   --
+   type vel_m_s; -- defined later in this file
+   function "/"(Left : len_m; Right : Duration) return vel_m_s;
    --
    -- Temperature types.  Prefix := "temp".  Base unit is celsius
    --
@@ -110,7 +116,10 @@ package BBS.units is
    function to_m_s(vel : vel_km_h) return vel_m_s;
    function to_m_s(vel : vel_mph) return vel_m_s;
    --
+   type accel_m_s2; -- defined later in this file
    function "*"(Left : vel_m_s; Right : Duration) return len_m;
+   function "*"(Left : Duration; Right : vel_m_s) return len_m;
+   function "/"(Left : vel_m_s; Right : Duration) return accel_m_s2;
    --
    -- Acceleration types.  Prefix := "accel".  Base unit is m/(s^2).
    --
@@ -123,6 +132,7 @@ package BBS.units is
    function to_g(accel : accel_m_s2) return accel_g;
    --
    function "*"(Left : accel_m_s2; Right : Duration) return vel_m_s;
+   function "*"(Left : Duration; Right : accel_m_s2) return vel_m_s;
    --
    -- Angular type.  Prefix := "ang".  Base unit is radians.
    --
@@ -134,7 +144,7 @@ package BBS.units is
    function to_degrees(ang : ang_r) return ang_d;
    function to_radians(ang : ang_d) return ang_r;
    --
-   -- Rotation rate types.  Prefix := "rot".  Base unit is radians/second
+   -- Rotation rate types.  Prefix := "rot".  Base unit is radians/second.
    --
    -- rotation in radians per second
    type rot_r_s is new Float;
@@ -143,6 +153,9 @@ package BBS.units is
    --
    function to_r_s(rot : rot_d_s) return rot_r_s;
    function to_d_s(rot : rot_r_s) return rot_d_s;
+   --
+   function "*"(Left : rot_d_s; Right : Duration) return ang_d;
+   function "*"(Left : Duration; Right : rot_d_s) return ang_d;
    --
    -- Magnetic types.  Prefix := "mag".  Base unit is Gauss.
    --
@@ -153,7 +166,23 @@ package BBS.units is
    -- Electromotive force types.  Prefix := "emf".  Base unit is Volt.
    --
    -- electromotive force in volts
-   --
    type emf_v is new Float;
    -- With only one unit, there are no conversion functions.
+   --
+   -- Electrical current types.  Prefix := "curr".  Base unit is Amper.
+   --
+   -- electrical current in amps
+   type curr_a is new Float;
+   -- With only one unit, there are no conversions functions.
+   --
+   -- Electrical resistance types.  Prefix := "res".  Base unit is Ohms.
+   type res_o is new Float;
+   --
+   -- Variations of Ohms law
+   --
+   function "*"(Left : curr_a; Right : res_o) return emf_v;
+   function "*"(Left : res_o; Right : curr_a) return emf_v;
+   function "/"(Left : emf_v; Right : curr_a) return res_o;
+   function "/"(Left : emf_v; Right : res_o) return curr_a;
+
 end;

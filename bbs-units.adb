@@ -15,6 +15,13 @@ package body BBS.units is
    begin
       return len_m(float(dist) / 3.28084);
    end;
+   --
+   -- Length functions
+   --
+   function "/"(Left : len_m; Right : Duration) return vel_m_s is
+   begin
+      return vel_m_s(Float(Left) / Float(Right));
+   end;
    -- -------------------------------------------------------------------------
    -- *** Temperature conversions ***
    --
@@ -107,6 +114,16 @@ package body BBS.units is
    begin
       return len_m(Float(Left) * Float(Right));
    end;
+   --
+   function "*"(Left : Duration; Right : vel_m_s) return len_m is
+   begin
+      return len_m(Float(Left) * Float(Right));
+   end;
+   --
+   function "/"(Left : vel_m_s; Right : Duration) return accel_m_s2 is
+   begin
+      return accel_m_s2(Float(Left) / Float(Right));
+   end;
    -- -------------------------------------------------------------------------
    -- *** Acceleration conversions ***
    --
@@ -123,6 +140,11 @@ package body BBS.units is
    -- Acceleration functions
    --
    function "*"(Left : accel_m_s2; Right : Duration) return vel_m_s is
+   begin
+      return vel_m_s(Float(Left) * Float(Right));
+   end;
+   --
+   function "*"(Left : Duration; Right : accel_m_s2) return vel_m_s is
    begin
       return vel_m_s(Float(Left) * Float(Right));
    end;
@@ -150,5 +172,41 @@ package body BBS.units is
    begin
       return rot_d_s(float(rot) * 180.0 / Ada.Numerics.Pi);
    end;
+   --
+   -- Rotation rate functions
+   --
+   function "*"(Left : rot_d_s; Right : Duration) return ang_d is
+   begin
+      return ang_d(Float(Left) * Float(Right));
+   end;
+   --
+   function "*"(Left : Duration; Right : rot_d_s) return ang_d is
+   begin
+      return ang_d(Float(Left) * Float(Right));
+   end;
+   -- -------------------------------------------------------------------------
+   -- *** Functions for Ohms law ***
+   --
+   function "*"(Left : curr_a; Right : res_o) return emf_v is
+   begin
+      return emf_v(Float(Left) * Float(Right));
+   end;
+   --
+   function "*"(Left : res_o; Right : curr_a) return emf_v is
+   begin
+      return emf_v(Float(Left) * Float(Right));
+   end;
+   --
+   function "/"(Left : emf_v; Right : curr_a) return res_o is
+   begin
+      return res_o(Float(Left) / Float(Right));
+   end;
+   --
+   function "/"(Left : emf_v; Right : res_o) return curr_a is
+   begin
+      return curr_a(Float(Left) / Float(Right));
+   end;
+   --
+
 
 end;
