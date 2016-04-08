@@ -98,6 +98,7 @@ package body BBS.units is
    begin
       return vel_m_s(float(vel) / 1.9438_4449_24);
    end;
+   --
    function to_m_s(vel : vel_km_h) return vel_m_s is
    begin
       return vel_m_s(float(vel) / 3.6);
@@ -206,7 +207,18 @@ package body BBS.units is
    begin
       return curr_a(Float(Left) / Float(Right));
    end;
+   -- -------------------------------------------------------------------------
+   -- *** Frequency and time conversions ***
    --
+   function to_hz(period : Duration) return freq_hz is
+   begin
+      return freq_hz(1.0/Float(period));
+   end;
+   --
+   function to_seconds(freq : freq_hz) return Duration is
+   begin
+      return Duration(1.0/Float(freq));
+   end;
 
 
 end;

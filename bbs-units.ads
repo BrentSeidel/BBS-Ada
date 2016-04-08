@@ -184,5 +184,14 @@ package BBS.units is
    function "*"(Left : res_o; Right : curr_a) return emf_v;
    function "/"(Left : emf_v; Right : curr_a) return res_o;
    function "/"(Left : emf_v; Right : res_o) return curr_a;
+   --
+   -- Frequency types.  Prefix := "freq".  Base unit is Hertz
+   --
+   -- frequency in Herts
+   type freq_hz is new Float;
+   --
+   function to_hz(period : Duration) return freq_hz;
+   function to_seconds(freq : freq_hz) return Duration;
+   --
 
 end;
