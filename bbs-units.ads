@@ -31,6 +31,33 @@
 -- velocity in meters per second.  Exponentiation is indicated by a number (eg
 -- accel_m_s2).
 --
+-- License:
+-- This is free and unencumbered software released into the public domain.
+--
+-- Anyone is free to copy, modify, publish, use, compile, sell, or
+-- distribute this software, either in source code form or as a compiled
+-- binary, for any purpose, commercial or non-commercial, and by any
+-- means.
+--
+-- In jurisdictions that recognize copyright laws, the author or authors
+-- of this software dedicate any and all copyright interest in the
+-- software to the public domain. We make this dedication for the benefit
+-- of the public at large and to the detriment of our heirs and
+-- successors. We intend this dedication to be an overt act of
+-- relinquishment in perpetuity of all present and future rights to this
+-- software under copyright law.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+-- EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+-- MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+-- IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+-- OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+-- ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+-- OTHER DEALINGS IN THE SOFTWARE.
+--
+-- For more information, please refer to <http://unlicense.org>
+--
+--
 with Ada.Numerics;
 package BBS.units is
    --
@@ -46,12 +73,9 @@ package BBS.units is
    -- Electromotive force types.  Prefix := "emf".  Base unit is Volt.
    -- Electrical current types.  Prefix := "curr".  Base unit is Amper.
    -- Electrical resistance types.  Prefix := "res".  Base unit is Ohms.
+   -- Frequency types. Prefix := "freq".  Base unit is Hertz
+   -- Time types.  Prefix := "time".  Base unit is Seconds
    --
-   --
-   -- Time types
-   --
-   -- duration in seconds
-   -- type Duration is a built in type.  Use this.
    --
    -- Length types.  Prefix := "len".  Base unit is meters
    --
@@ -59,9 +83,13 @@ package BBS.units is
    type len_m is new Float;
    -- length in feet
    type len_ft is new Float;
+   -- length in Ångstroms
+   type len_Å is new Float;
    --
    function to_feet(dist : len_m) return len_ft;
+   function to_Ångstroms(dist : len_m) return len_Å;
    function to_meters(dist : len_ft) return len_m;
+   function to_meters(dist : len_Å) return len_m;
    --
    type vel_m_s; -- defined later in this file
    function "/"(Left : len_m; Right : Duration) return vel_m_s;
@@ -186,12 +214,28 @@ package BBS.units is
    function "/"(Left : emf_v; Right : res_o) return curr_a;
    --
    -- Frequency types.  Prefix := "freq".  Base unit is Hertz
+   -- Time types. Prefix := "time".  Base unit is Seconds
+   --
+   -- Note that Ada has a predefined Duration type that is a fixed point type
+   -- Seconds is defined as a subtype of this.  The other times (minutes and
+   -- hours) are derivative types so as to maintain similar precision.  If needed,
+   -- they could be changed to Float or something else.
    --
    -- frequency in Herts
    type freq_hz is new Float;
+   -- time in seconds (use subtype because seconds is identical to duration)
+   subtype time_s is Duration;
+   -- time in minutes
+   type time_m is new Duration;
+   -- time in hours
+   type time_h is new Duration;
    --
-   function to_hz(period : Duration) return freq_hz;
-   function to_seconds(freq : freq_hz) return Duration;
+   function to_hz(period : time_s) return freq_hz;
+   function to_minutes(period : time_s) return time_m;
+   function to_hours(period : time_s) return time_h;
+   function to_seconds(freq : freq_hz) return time_s;
+   function to_seconds(period : time_m) return time_s;
+   function to_seconds(period : time_h) return time_s;
    --
 
 end;

@@ -1,3 +1,29 @@
+--
+-- This is free and unencumbered software released into the public domain.
+--
+-- Anyone is free to copy, modify, publish, use, compile, sell, or
+-- distribute this software, either in source code form or as a compiled
+-- binary, for any purpose, commercial or non-commercial, and by any
+-- means.
+--
+-- In jurisdictions that recognize copyright laws, the author or authors
+-- of this software dedicate any and all copyright interest in the
+-- software to the public domain. We make this dedication for the benefit
+-- of the public at large and to the detriment of our heirs and
+-- successors. We intend this dedication to be an overt act of
+-- relinquishment in perpetuity of all present and future rights to this
+-- software under copyright law.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+-- EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+-- MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+-- IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+-- OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+-- ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+-- OTHER DEALINGS IN THE SOFTWARE.
+--
+-- For more information, please refer to <http://unlicense.org>
+--
 package body BBS.units is
    --
    -- Unit conversion routines.  Most of these are pretty simple.  Add as needed.
@@ -11,9 +37,19 @@ package body BBS.units is
       return len_ft(float(dist) * 3.28084);
    end;
    --
+   function to_Ångstroms(dist : len_m) return len_Å is
+   begin
+      return len_Å(dist * 10_000_000_000.0);
+   end;
+   --
    function to_meters(dist : len_ft) return len_m is
    begin
       return len_m(float(dist) / 3.28084);
+   end;
+   --
+   function to_meters(dist : len_Å) return len_m is
+   begin
+      return len_m(dist / 10_000_000_000.0);
    end;
    --
    -- Length functions
@@ -210,15 +246,35 @@ package body BBS.units is
    -- -------------------------------------------------------------------------
    -- *** Frequency and time conversions ***
    --
-   function to_hz(period : Duration) return freq_hz is
+   function to_hz(period : time_s) return freq_hz is
    begin
       return freq_hz(1.0/Float(period));
    end;
    --
-   function to_seconds(freq : freq_hz) return Duration is
+   function to_minutes(period : time_s) return time_m is
    begin
-      return Duration(1.0/Float(freq));
+      return time_m(period / 60.0);
    end;
-
+   --
+   function to_hours(period : time_s) return time_h is
+   begin
+      return time_h(period / 3600.0);
+   end;
+   --
+   function to_seconds(freq : freq_hz) return time_s is
+   begin
+      return time_s(1.0/Float(freq));
+   end;
+   --
+   function to_seconds(period : time_m) return time_s is
+   begin
+      return time_s(period * 60.0);
+   end;
+   --
+   function to_seconds(period : time_h) return time_s is
+   begin
+      return time_s(period * 3600.0);
+   end;
+   --
 
 end;
