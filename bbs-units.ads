@@ -77,7 +77,7 @@ package BBS.units is
    -- Time types.  Prefix := "time".  Base unit is Seconds
    --
    --
-   -- Length types.  Prefix := "len".  Base unit is meters
+   -- Length types.  Prefix := "len".  Base unit is meters.
    --
    -- length in meters
    type len_m is new Float;
@@ -94,7 +94,26 @@ package BBS.units is
    type vel_m_s; -- defined later in this file
    function "/"(Left : len_m; Right : Duration) return vel_m_s;
    --
-   -- Temperature types.  Prefix := "temp".  Base unit is celsius
+   -- Area types.  Prefix := "area".  Base unit is meters^2.
+   --
+   -- area in square meters
+   type area_m2 is new Float;
+   -- With only one unit, there are no conversion functions.
+   function "*"(Left, Right : len_m) return area_m2;
+   --
+   -- Volume types.  Prefix := "vol".  Base unit is liters.
+   --
+   -- volume in liters
+   type vol_l is new Float;
+   -- volume in cubic meters
+   type vol_m3 is new Float;
+   --
+   function to_liters(vol : vol_m3) return vol_l;
+   function to_meters3(vol : vol_l) return vol_m3;
+   function "*"(Left : len_m; Right : area_m2) return vol_m3;
+   function "*"(Left : area_m2; Right : len_m) return vol_m3;
+   --
+   -- Temperature types.  Prefix := "temp".  Base unit is celsius.
    --
    -- temperature in kelvin
    type temp_k is new Float;
@@ -108,7 +127,7 @@ package BBS.units is
    function to_Celsius(temp : temp_f) return temp_c;
    function to_Celsius(temp : temp_k) return temp_c;
    --
-   -- Pressure types.  Prefix := "press".  Base unit is pascal
+   -- Pressure types.  Prefix := "press".  Base unit is pascal.
    --
    -- pressure in pascals
    type press_p is new Float;
@@ -126,7 +145,7 @@ package BBS.units is
    function to_Pascal(pressure : press_atm) return press_p;
    function to_Pascal(pressure : press_inHg) return press_p;
    --
-   -- Velocity types.  Prefix := "vel".  Base unit is m/s
+   -- Velocity types.  Prefix := "vel".  Base unit is m/s.
    --
    -- velocity in meters/second
    type vel_m_s is new Float;
@@ -213,8 +232,8 @@ package BBS.units is
    function "/"(Left : emf_v; Right : curr_a) return res_o;
    function "/"(Left : emf_v; Right : res_o) return curr_a;
    --
-   -- Frequency types.  Prefix := "freq".  Base unit is Hertz
-   -- Time types. Prefix := "time".  Base unit is Seconds
+   -- Frequency types.  Prefix := "freq".  Base unit is Hertz.
+   -- Time types. Prefix := "time".  Base unit is Seconds.
    --
    -- Note that Ada has a predefined Duration type that is a fixed point type
    -- Seconds is defined as a subtype of this.  The other times (minutes and

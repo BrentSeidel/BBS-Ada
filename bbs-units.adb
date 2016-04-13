@@ -39,7 +39,7 @@ package body BBS.units is
    --
    function to_Ångstroms(dist : len_m) return len_Å is
    begin
-      return len_Å(dist * 10_000_000_000.0);
+      return len_Å(Float(dist) * 10_000_000_000.0);
    end;
    --
    function to_meters(dist : len_ft) return len_m is
@@ -57,6 +57,40 @@ package body BBS.units is
    function "/"(Left : len_m; Right : Duration) return vel_m_s is
    begin
       return vel_m_s(Float(Left) / Float(Right));
+   end;
+   -- -------------------------------------------------------------------------
+   -- *** Area conversions ***
+   --
+   --
+   -- Area functions
+   --
+   function "*"(Left, Right : len_m) return area_m2 is
+   begin
+      return area_m2(Float(Left) * Float(Right));
+   end;
+   -- -------------------------------------------------------------------------
+   -- *** Volume conversions ***
+   --
+   function to_liters(vol : vol_m3) return vol_l is
+   begin
+      return vol_l(vol * 1000.0);
+   end;
+   --
+   function to_meters3(vol : vol_l) return vol_m3 is
+   begin
+      return vol_m3(vol / 1000.0);
+   end;
+   --
+   -- Volume functions
+   --
+   function "*"(Left : len_m; Right : area_m2) return vol_m3 is
+   begin
+      return vol_m3(Float(Left) * Float(right));
+   end;
+   --
+   function "*"(Left : area_m2; Right : len_m) return vol_m3 is
+   begin
+      return vol_m3(Float(Left) * Float(right));
    end;
    -- -------------------------------------------------------------------------
    -- *** Temperature conversions ***

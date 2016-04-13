@@ -22,19 +22,21 @@ accel_m_s2).
 
 ## Contents
 Index of type prefixes:
-* Length types.  Prefix := "len".  Base unit is meters
-* Temperature types.  Prefix := "temp".  Base unit is celsius
-* Pressure types.  Prefix := "press".  Base unit is pascal
-* Velocity types.  Prefix := "vel".  Base unit is m/s
+* Length types.  Prefix := "len".  Base unit is meters.
+* Area types.  Prefix := "area".  Base unit is meters^2.
+* Volume types.  Prefix := "vol".  Base unit is liters.
+* Temperature types.  Prefix := "temp".  Base unit is celsius.
+* Pressure types.  Prefix := "press".  Base unit is pascal.
+* Velocity types.  Prefix := "vel".  Base unit is m/s.
 * Acceleration types.  Prefix := "accel".  Base unit is m/(s^2).
 * Angular type.  Prefix := "ang".  Base unit is radians.
-* Rotation rate types.  Prefix := "rot".  Base unit is radians/second
+* Rotation rate types.  Prefix := "rot".  Base unit is radians/second.
 * Magnetic types.  Prefix := "mag".  Base unit is Gauss.
 * Electromotive force types.  Prefix := "emf".  Base unit is Volt.
 * Electrical current types.  Prefix := "curr".  Base unit is Amper.
 * Electrical resistance types.  Prefix := "res".  Base unit is Ohms.
-* Frequency types. Prefix := "freq".  Base unit is Hertz
-* Time types.  Prefix := "time".  Base unit is Seconds
+* Frequency types. Prefix := "freq".  Base unit is Hertz.
+* Time types.  Prefix := "time".  Base unit is Seconds.
 
 ## Adding Units
 Note that since the number of units is large and the number of useful combinations
