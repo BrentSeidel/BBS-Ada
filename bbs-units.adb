@@ -93,6 +93,34 @@ package body BBS.units is
       return vol_m3(Float(Left) * Float(right));
    end;
    -- -------------------------------------------------------------------------
+   -- *** Mass conversions ***
+   --
+   function to_pounds(mass : mass_kg) return mass_lb is
+   begin
+      return mass_lb(Float(mass) / 0.4535924);
+   end;
+   --
+   function to_kilograms(mass : mass_lb) return mass_kg is
+   begin
+      return mass_kg(Float(mass) * 0.4535924);
+   end;
+   -- -------------------------------------------------------------------------
+   -- *** Force conversions ***
+   --
+   -- none
+   --
+   -- Force functions
+   --
+   function "*"(Left : mass_kg; Right : accel_m_s2) return force_n is
+   begin
+        return force_n(Float(Left) * Float(Right));
+   end;
+   --
+   function "*"(Left : accel_m_s2; Right : mass_kg) return force_n is
+   begin
+        return force_n(Float(Left) * Float(Right));
+   end;
+   -- -------------------------------------------------------------------------
    -- *** Temperature conversions ***
    --
    function to_Farenheit(temp : temp_c) return temp_f is

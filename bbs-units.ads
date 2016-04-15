@@ -62,20 +62,28 @@ with Ada.Numerics;
 package BBS.units is
    --
    -- Index of type prefixes:
-   -- Length types.  Prefix := "len".  Base unit is meters
-   -- Temperature types.  Prefix := "temp".  Base unit is celsius
-   -- Pressure types.  Prefix := "press".  Base unit is pascal
-   -- Velocity types.  Prefix := "vel".  Base unit is m/s
+   -- Length types.  Prefix := "len".  Base unit is meters.
+   -- Area types.  Prefix := "area".  Base unit is meters^2.
+   -- Volume types.  Prefix := "vol".  Base unit is liters.
+   -- Mass types.  Prefix := "mass".  Base unit is kilograms.
+   -- Force types.  Prefix := "force".  Base unit is newtons.
+   -- Temperature types.  Prefix := "temp".  Base unit is celsius.
+   -- Pressure types.  Prefix := "press".  Base unit is pascal.
+   -- Velocity types.  Prefix := "vel".  Base unit is m/s.
    -- Acceleration types.  Prefix := "accel".  Base unit is m/(s^2).
    -- Angular type.  Prefix := "ang".  Base unit is radians.
-   -- Rotation rate types.  Prefix := "rot".  Base unit is radians/second
+   -- Rotation rate types.  Prefix := "rot".  Base unit is radians/second.
    -- Magnetic types.  Prefix := "mag".  Base unit is Gauss.
    -- Electromotive force types.  Prefix := "emf".  Base unit is Volt.
    -- Electrical current types.  Prefix := "curr".  Base unit is Amper.
    -- Electrical resistance types.  Prefix := "res".  Base unit is Ohms.
-   -- Frequency types. Prefix := "freq".  Base unit is Hertz
-   -- Time types.  Prefix := "time".  Base unit is Seconds
+   -- Frequency types. Prefix := "freq".  Base unit is Hertz.
+   -- Time types.  Prefix := "time".  Base unit is Seconds.
    --
+   -- Forward declaration of types, as needed.
+   --
+   type vel_m_s; -- defined later in this file
+   type accel_m_s2;
    --
    -- Length types.  Prefix := "len".  Base unit is meters.
    --
@@ -91,7 +99,6 @@ package BBS.units is
    function to_meters(dist : len_ft) return len_m;
    function to_meters(dist : len_Å) return len_m;
    --
-   type vel_m_s; -- defined later in this file
    function "/"(Left : len_m; Right : Duration) return vel_m_s;
    --
    -- Area types.  Prefix := "area".  Base unit is meters^2.
@@ -112,6 +119,25 @@ package BBS.units is
    function to_meters3(vol : vol_l) return vol_m3;
    function "*"(Left : len_m; Right : area_m2) return vol_m3;
    function "*"(Left : area_m2; Right : len_m) return vol_m3;
+   --
+   -- Mass types.  Prefix := "mass".  Base unit is kilograms.
+   --
+   -- mass in kilograms
+   type mass_kg is new Float;
+   -- mass in pounds
+   type mass_lb is new Float;
+   --
+   function to_pounds(mass : mass_kg) return mass_lb;
+   function to_kilograms(mass : mass_lb) return mass_kg;
+   --
+   -- Force types.  Prefix := "force".  Base unit is newtons.
+   --
+   -- force in newtons
+   type force_n is new Float;
+   -- with no other units there are no conversion functions
+   -- Newtons law, F=MA
+   function "*"(Left : mass_kg; Right : accel_m_s2) return force_n;
+   function "*"(Left : accel_m_s2; Right : mass_kg) return force_n;
    --
    -- Temperature types.  Prefix := "temp".  Base unit is celsius.
    --
@@ -163,7 +189,6 @@ package BBS.units is
    function to_m_s(vel : vel_km_h) return vel_m_s;
    function to_m_s(vel : vel_mph) return vel_m_s;
    --
-   type accel_m_s2; -- defined later in this file
    function "*"(Left : vel_m_s; Right : Duration) return len_m;
    function "*"(Left : Duration; Right : vel_m_s) return len_m;
    function "/"(Left : vel_m_s; Right : Duration) return accel_m_s2;

@@ -25,6 +25,8 @@ Index of type prefixes:
 * Length types.  Prefix := "len".  Base unit is meters.
 * Area types.  Prefix := "area".  Base unit is meters^2.
 * Volume types.  Prefix := "vol".  Base unit is liters.
+* Mass types.  Prefix := "mass".  Base unit is kilograms.
+* Force types.  Prefix := "force".  Base unit is newtons.
 * Temperature types.  Prefix := "temp".  Base unit is celsius.
 * Pressure types.  Prefix := "press".  Base unit is pascal.
 * Velocity types.  Prefix := "vel".  Base unit is m/s.
