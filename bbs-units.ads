@@ -138,6 +138,8 @@ package BBS.units is
    -- Newtons law, F=MA
    function "*"(Left : mass_kg; Right : accel_m_s2) return force_n;
    function "*"(Left : accel_m_s2; Right : mass_kg) return force_n;
+   function "/"(Left : force_n; Right : accel_m_s2) return mass_kg;
+   function "/"(Left : force_n; Right : mass_kg) return accel_m_s2;
    --
    -- Temperature types.  Prefix := "temp".  Base unit is celsius.
    --

@@ -120,6 +120,16 @@ package body BBS.units is
    begin
         return force_n(Float(Left) * Float(Right));
    end;
+   --
+   function "/"(Left : force_n; Right : accel_m_s2) return mass_kg is
+   begin
+        return mass_kg(Float(Left) / Float(Right));
+   end;
+   --
+   function "/"(Left : force_n; Right : mass_kg) return accel_m_s2 is
+   begin
+        return accel_m_s2(Float(Left) / Float(Right));
+   end;
    -- -------------------------------------------------------------------------
    -- *** Temperature conversions ***
    --
