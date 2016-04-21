@@ -59,7 +59,7 @@
 --
 --
 with Ada.Numerics;
-package BBS.units is
+package BBS.units with SPARK_Mode => on is
    --
    -- Index of type prefixes:
    -- Length types.  Prefix := "len".  Base unit is meters.
@@ -82,7 +82,7 @@ package BBS.units is
    --
    -- Forward declaration of types, as needed.
    --
-   type vel_m_s; -- defined later in this file
+   type vel_m_s;
    type accel_m_s2;
    --
    -- Length types.  Prefix := "len".  Base unit is meters.
@@ -94,19 +94,32 @@ package BBS.units is
    -- length in Ångstroms
    type len_Å is new Float;
    --
-   function to_feet(dist : len_m) return len_ft;
-   function to_Ångstroms(dist : len_m) return len_Å;
-   function to_meters(dist : len_ft) return len_m;
-   function to_meters(dist : len_Å) return len_m;
+   function to_feet(dist : len_m) return len_ft
+     with
+       Global => null;
+   function to_Ångstroms(dist : len_m) return len_Å
+     with
+       Global => null;
+   function to_meters(dist : len_ft) return len_m
+     with
+       Global => null;
+   function to_meters(dist : len_Å) return len_m
+     with
+       Global => null;
    --
-   function "/"(Left : len_m; Right : Duration) return vel_m_s;
+   function "/"(Left : len_m; Right : Duration) return vel_m_s
+     with
+       Global => null,
+       pre => (Right /= 0.0);
    --
    -- Area types.  Prefix := "area".  Base unit is meters^2.
    --
    -- area in square meters
    type area_m2 is new Float;
    -- With only one unit, there are no conversion functions.
-   function "*"(Left, Right : len_m) return area_m2;
+   function "*"(Left, Right : len_m) return area_m2
+     with
+       Global => null;
    --
    -- Volume types.  Prefix := "vol".  Base unit is liters.
    --
@@ -115,10 +128,18 @@ package BBS.units is
    -- volume in cubic meters
    type vol_m3 is new Float;
    --
-   function to_liters(vol : vol_m3) return vol_l;
-   function to_meters3(vol : vol_l) return vol_m3;
-   function "*"(Left : len_m; Right : area_m2) return vol_m3;
-   function "*"(Left : area_m2; Right : len_m) return vol_m3;
+   function to_liters(vol : vol_m3) return vol_l
+     with
+       Global => null;
+   function to_meters3(vol : vol_l) return vol_m3
+     with
+       Global => null;
+   function "*"(Left : len_m; Right : area_m2) return vol_m3
+     with
+       Global => null;
+   function "*"(Left : area_m2; Right : len_m) return vol_m3
+     with
+       Global => null;
    --
    -- Mass types.  Prefix := "mass".  Base unit is kilograms.
    --
@@ -127,8 +148,12 @@ package BBS.units is
    -- mass in pounds
    type mass_lb is new Float;
    --
-   function to_pounds(mass : mass_kg) return mass_lb;
-   function to_kilograms(mass : mass_lb) return mass_kg;
+   function to_pounds(mass : mass_kg) return mass_lb
+     with
+       Global => null;
+   function to_kilograms(mass : mass_lb) return mass_kg
+     with
+       Global => null;
    --
    -- Force types.  Prefix := "force".  Base unit is newtons.
    --
@@ -136,10 +161,20 @@ package BBS.units is
    type force_n is new Float;
    -- with no other units there are no conversion functions
    -- Newtons law, F=MA
-   function "*"(Left : mass_kg; Right : accel_m_s2) return force_n;
-   function "*"(Left : accel_m_s2; Right : mass_kg) return force_n;
-   function "/"(Left : force_n; Right : accel_m_s2) return mass_kg;
-   function "/"(Left : force_n; Right : mass_kg) return accel_m_s2;
+   function "*"(Left : mass_kg; Right : accel_m_s2) return force_n
+     with
+       Global => null;
+   function "*"(Left : accel_m_s2; Right : mass_kg) return force_n
+     with
+       Global => null;
+   function "/"(Left : force_n; Right : accel_m_s2) return mass_kg
+     with
+       Global => null,
+       pre => (Right /= 0.0);
+   function "/"(Left : force_n; Right : mass_kg) return accel_m_s2
+     with
+       Global => null,
+       pre => (Right /= 0.0);
    --
    -- Temperature types.  Prefix := "temp".  Base unit is celsius.
    --
@@ -150,10 +185,18 @@ package BBS.units is
    -- temperature in farenheit
    type temp_f is new Float;
    --
-   function to_Farenheit(temp : temp_c) return temp_f;
-   function to_Kelvin(temp : temp_c) return temp_k;
-   function to_Celsius(temp : temp_f) return temp_c;
-   function to_Celsius(temp : temp_k) return temp_c;
+   function to_Farenheit(temp : temp_c) return temp_f
+     with
+       Global => null;
+   function to_Kelvin(temp : temp_c) return temp_k
+     with
+       Global => null;
+   function to_Celsius(temp : temp_f) return temp_c
+     with
+       Global => null;
+   function to_Celsius(temp : temp_k) return temp_c
+     with
+       Global => null;
    --
    -- Pressure types.  Prefix := "press".  Base unit is pascal.
    --
@@ -166,12 +209,24 @@ package BBS.units is
    -- pressure in inches of mercury
    type press_inHg is new Float;
    --
-   function to_milliBar(pressure : press_p) return press_mb;
-   function to_Atmosphere(pressure : press_p) return press_atm;
-   function to_inHg(pressure : press_p) return press_inHg;
-   function to_Pascal(pressure : press_mb) return press_p;
-   function to_Pascal(pressure : press_atm) return press_p;
-   function to_Pascal(pressure : press_inHg) return press_p;
+   function to_milliBar(pressure : press_p) return press_mb
+     with
+       Global => null;
+   function to_Atmosphere(pressure : press_p) return press_atm
+     with
+       Global => null;
+   function to_inHg(pressure : press_p) return press_inHg
+     with
+       Global => null;
+   function to_Pascal(pressure : press_mb) return press_p
+     with
+       Global => null;
+   function to_Pascal(pressure : press_atm) return press_p
+     with
+       Global => null;
+   function to_Pascal(pressure : press_inHg) return press_p
+     with
+       Global => null;
    --
    -- Velocity types.  Prefix := "vel".  Base unit is m/s.
    --
@@ -184,16 +239,35 @@ package BBS.units is
    -- velocity in knots
    type vel_knots is new Float;
    --
-   function to_mph(vel : vel_m_s) return vel_mph;
-   function to_km_h(vel : vel_m_s) return vel_km_h;
-   function to_knots(vel : vel_m_s) return vel_knots;
-   function to_m_s(vel : vel_knots) return vel_m_s;
-   function to_m_s(vel : vel_km_h) return vel_m_s;
-   function to_m_s(vel : vel_mph) return vel_m_s;
+   function to_mph(vel : vel_m_s) return vel_mph
+     with
+       Global => null;
+   function to_km_h(vel : vel_m_s) return vel_km_h
+     with
+       Global => null;
+   function to_knots(vel : vel_m_s) return vel_knots
+     with
+       Global => null;
+   function to_m_s(vel : vel_knots) return vel_m_s
+     with
+       Global => null;
+   function to_m_s(vel : vel_km_h) return vel_m_s
+     with
+       Global => null;
+   function to_m_s(vel : vel_mph) return vel_m_s
+     with
+       Global => null;
    --
-   function "*"(Left : vel_m_s; Right : Duration) return len_m;
-   function "*"(Left : Duration; Right : vel_m_s) return len_m;
-   function "/"(Left : vel_m_s; Right : Duration) return accel_m_s2;
+   function "*"(Left : vel_m_s; Right : Duration) return len_m
+     with
+       Global => null;
+   function "*"(Left : Duration; Right : vel_m_s) return len_m
+     with
+       Global => null;
+   function "/"(Left : vel_m_s; Right : Duration) return accel_m_s2
+     with
+       Global => null,
+       pre => (Right /= 0.0);
    --
    -- Acceleration types.  Prefix := "accel".  Base unit is m/(s^2).
    --
@@ -202,11 +276,19 @@ package BBS.units is
    -- acceleration in units of Earth gravity
    type accel_g is new Float;
    --
-   function to_m_s2(accel : accel_g) return accel_m_s2;
-   function to_g(accel : accel_m_s2) return accel_g;
+   function to_m_s2(accel : accel_g) return accel_m_s2
+     with
+       Global => null;
+   function to_g(accel : accel_m_s2) return accel_g
+     with
+       Global => null;
    --
-   function "*"(Left : accel_m_s2; Right : Duration) return vel_m_s;
-   function "*"(Left : Duration; Right : accel_m_s2) return vel_m_s;
+   function "*"(Left : accel_m_s2; Right : Duration) return vel_m_s
+     with
+       Global => null;
+   function "*"(Left : Duration; Right : accel_m_s2) return vel_m_s
+     with
+       Global => null;
    --
    -- Angular type.  Prefix := "ang".  Base unit is radians.
    --
@@ -215,8 +297,12 @@ package BBS.units is
    -- angle in degrees
    type ang_d is new Float;
    --
-   function to_degrees(ang : ang_r) return ang_d;
-   function to_radians(ang : ang_d) return ang_r;
+   function to_degrees(ang : ang_r) return ang_d
+     with
+       Global => null;
+   function to_radians(ang : ang_d) return ang_r
+     with
+       Global => null;
    --
    -- Rotation rate types.  Prefix := "rot".  Base unit is radians/second.
    --
@@ -225,11 +311,19 @@ package BBS.units is
    -- rotation in degrees per second
    type rot_d_s is new Float;
    --
-   function to_r_s(rot : rot_d_s) return rot_r_s;
-   function to_d_s(rot : rot_r_s) return rot_d_s;
+   function to_r_s(rot : rot_d_s) return rot_r_s
+     with
+       Global => null;
+   function to_d_s(rot : rot_r_s) return rot_d_s
+     with
+       Global => null;
    --
-   function "*"(Left : rot_d_s; Right : Duration) return ang_d;
-   function "*"(Left : Duration; Right : rot_d_s) return ang_d;
+   function "*"(Left : rot_d_s; Right : Duration) return ang_d
+     with
+       Global => null;
+   function "*"(Left : Duration; Right : rot_d_s) return ang_d
+     with
+       Global => null;
    --
    -- Magnetic types.  Prefix := "mag".  Base unit is Gauss.
    --
@@ -254,10 +348,20 @@ package BBS.units is
    --
    -- Variations of Ohms law
    --
-   function "*"(Left : curr_a; Right : res_o) return emf_v;
-   function "*"(Left : res_o; Right : curr_a) return emf_v;
-   function "/"(Left : emf_v; Right : curr_a) return res_o;
-   function "/"(Left : emf_v; Right : res_o) return curr_a;
+   function "*"(Left : curr_a; Right : res_o) return emf_v
+     with
+       Global => null;
+   function "*"(Left : res_o; Right : curr_a) return emf_v
+     with
+       Global => null;
+   function "/"(Left : emf_v; Right : curr_a) return res_o
+     with
+       Global => null,
+       pre => (Right /= 0.0);
+   function "/"(Left : emf_v; Right : res_o) return curr_a
+     with
+       Global => null,
+       pre => (Right /= 0.0);
    --
    -- Frequency types.  Prefix := "freq".  Base unit is Hertz.
    -- Time types. Prefix := "time".  Base unit is Seconds.
@@ -276,12 +380,24 @@ package BBS.units is
    -- time in hours
    type time_h is new Duration;
    --
-   function to_hz(period : time_s) return freq_hz;
-   function to_minutes(period : time_s) return time_m;
-   function to_hours(period : time_s) return time_h;
-   function to_seconds(freq : freq_hz) return time_s;
-   function to_seconds(period : time_m) return time_s;
-   function to_seconds(period : time_h) return time_s;
+   function to_hz(period : time_s) return freq_hz
+     with
+       Global => null;
+   function to_minutes(period : time_s) return time_m
+     with
+       Global => null;
+   function to_hours(period : time_s) return time_h
+     with
+       Global => null;
+   function to_seconds(freq : freq_hz) return time_s
+     with
+       Global => null;
+   function to_seconds(period : time_m) return time_s
+     with
+       Global => null;
+   function to_seconds(period : time_h) return time_s
+     with
+       Global => null;
    --
 
 end;
