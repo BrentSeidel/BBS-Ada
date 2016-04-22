@@ -1,4 +1,63 @@
-package BBS is
+--
+-- Author: Brent Seidel
+-- Version: V01.00
+-- Date: 5-Jun-2015
+--
+-- This package defines a number of types for physical units.  These are
+-- generally based off of the Float type since in most cases, 6 digits is
+-- pretty good for a physical measurement.  If you need more precision, go
+-- ahead and change it to whatever you need.
+--
+-- Conversion routines are provided to convert between different units.  Due to
+-- the number of different units, conversion between two may not be directly
+-- possible, but should be possible through intermediate units.  The ones present
+-- are the ones that I use most.  More will probably be added in the future.  For
+-- each type of measurement, there is a base unit.  Conversions to and from this
+-- unit to other units are provided.
+--
+-- While addition and subtraction of units generally provides a meaningful result,
+-- multiplication and division may not.  For example meters*meters should provide
+-- a result in meters^2.  In some cases (ones that I use) multiplication and
+-- division will be provided.  Most of these routines are trivial and can be
+-- added as needed.
+--
+-- Ada provides Ada.Calendar to cover time related items.  Therefor, there is
+-- not much time support here.
+--
+-- The naming convention of the units is a prefix indicating what kind of unit,
+-- an underscore, and the the S.I. code for the unit (if applicable) or a common
+-- abbreviation (eg. vel_mph for velocity in mile per hour).  Since "/" is not
+-- valid in indentifiers, it will be replaced by an underscore (eg vel_m_s) for
+-- velocity in meters per second.  Exponentiation is indicated by a number (eg
+-- accel_m_s2).
+--
+-- License:
+-- This is free and unencumbered software released into the public domain.
+--
+-- Anyone is free to copy, modify, publish, use, compile, sell, or
+-- distribute this software, either in source code form or as a compiled
+-- binary, for any purpose, commercial or non-commercial, and by any
+-- means.
+--
+-- In jurisdictions that recognize copyright laws, the author or authors
+-- of this software dedicate any and all copyright interest in the
+-- software to the public domain. We make this dedication for the benefit
+-- of the public at large and to the detriment of our heirs and
+-- successors. We intend this dedication to be an overt act of
+-- relinquishment in perpetuity of all present and future rights to this
+-- software under copyright law.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+-- EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+-- MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+-- IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+-- OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+-- ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+-- OTHER DEALINGS IN THE SOFTWARE.
+--
+-- For more information, please refer to <http://unlicense.org>
+--
+package BBS with SPARK_Mode => on is
 --
 -- Empty package just so that everything that I make is in the BBS namespace.
 --

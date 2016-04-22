@@ -24,7 +24,7 @@
 --
 -- For more information, please refer to <http://unlicense.org>
 --
-package body BBS.units is
+package body BBS.units with SPARK_Mode => on is
    --
    -- Unit conversion routines.  Most of these are pretty simple.  Add as needed.
    -- The conversion factors come from a variety of sources and definitions.
@@ -32,24 +32,26 @@ package body BBS.units is
    -- -------------------------------------------------------------------------
    -- *** Distance conversions ***
    --
+   feet_to_meter : constant := 3.28084;
+   Ångstrom_to_meter : constant := 10_000_000_000.0;
    function to_feet(dist : len_m) return len_ft is
    begin
-      return len_ft(float(dist) * 3.28084);
+      return len_ft(float(dist) * feet_to_meter);
    end;
    --
    function to_Ångstroms(dist : len_m) return len_Å is
    begin
-      return len_Å(Float(dist) * 10_000_000_000.0);
+      return len_Å(Float(dist) * Ångstrom_to_meter);
    end;
    --
    function to_meters(dist : len_ft) return len_m is
    begin
-      return len_m(float(dist) / 3.28084);
+      return len_m(float(dist) / feet_to_meter);
    end;
    --
    function to_meters(dist : len_Å) return len_m is
    begin
-      return len_m(dist / 10_000_000_000.0);
+      return len_m(dist / Ångstrom_to_meter);
    end;
    --
    -- Length functions
@@ -71,14 +73,15 @@ package body BBS.units is
    -- -------------------------------------------------------------------------
    -- *** Volume conversions ***
    --
+   m3_to_liter : constant := 1000.0;
    function to_liters(vol : vol_m3) return vol_l is
    begin
-      return vol_l(vol * 1000.0);
+      return vol_l(vol * m3_to_liter);
    end;
    --
    function to_meters3(vol : vol_l) return vol_m3 is
    begin
-      return vol_m3(vol / 1000.0);
+      return vol_m3(vol / m3_to_liter);
    end;
    --
    -- Volume functions
@@ -95,14 +98,15 @@ package body BBS.units is
    -- -------------------------------------------------------------------------
    -- *** Mass conversions ***
    --
+   pound_to_kilogram : constant := 0.4535924;
    function to_pounds(mass : mass_kg) return mass_lb is
    begin
-      return mass_lb(Float(mass) / 0.4535924);
+      return mass_lb(Float(mass) / pound_to_kilogram);
    end;
    --
    function to_kilograms(mass : mass_lb) return mass_kg is
    begin
-      return mass_kg(Float(mass) * 0.4535924);
+      return mass_kg(Float(mass) * pound_to_kilogram);
    end;
    -- -------------------------------------------------------------------------
    -- *** Force conversions ***
@@ -155,66 +159,72 @@ package body BBS.units is
    -- -------------------------------------------------------------------------
    -- *** Pressure conversions ***
    --
+   millibar_to_pascal : constant := 100.0;
+   atm_to_pascal : constant := 101325.0;
+   inHg_to_pascal : constant := 3386.39;
    function to_milliBar(pressure : press_p) return press_mb is
    begin
-      return press_mb(float(pressure) / 100.0);
+      return press_mb(float(pressure) / millibar_to_pascal);
    end;
    --
    function to_Atmosphere(pressure : press_p) return press_atm is
    begin
-      return press_atm(float(pressure) / 101325.0);
+      return press_atm(float(pressure) / atm_to_pascal);
    end;
    --
    function to_inHg(pressure : press_p) return press_inHg is
    begin
-      return press_inHg(float(pressure) / 3386.39);
+      return press_inHg(float(pressure) / inHg_to_pascal);
    end;
    --
    function to_Pascal(pressure : press_mb) return press_p is
    begin
-      return press_p(float(pressure) * 100.0);
+      return press_p(float(pressure) * millibar_to_pascal);
    end;
    --
    function to_Pascal(pressure : press_atm) return press_p is
    begin
-      return press_p(float(pressure) * 101325.0);
+      return press_p(float(pressure) * atm_to_pascal);
    end;
    --
    function to_Pascal(pressure : press_inHg) return press_p is
    begin
-      return press_p(float(pressure) * 3386.39);
+      return press_p(float(pressure) * inHg_to_pascal);
    end;
    -- -------------------------------------------------------------------------
    -- *** Velocity conversions ***
    --
+   m_s_to_mph : constant := 2.2369_3629_11;
+   m_s_to_km_h : constant := 3.6;
+   m_s_to_knots : constant := 1.9438_4449_24;
    function to_mph(vel : vel_m_s) return vel_mph is
    begin
-      return vel_mph(float(vel) * 2.2369_3629_11);
+      return vel_mph(float(vel) * m_s_to_mph);
    end;
    --
    function to_km_h(vel : vel_m_s) return vel_km_h is
    begin
-      return vel_km_h(float(vel) * 3.6);
+      return vel_km_h(float(vel) * m_s_to_km_h);
    end;
    --
    function to_knots(vel : vel_m_s) return vel_knots is
    begin
-      return vel_knots(float(vel) * 1.9438_4449_24);
+      return vel_knots(float(vel) * m_s_to_knots);
    end;
    --
    function to_m_s(vel : vel_knots) return vel_m_s is
    begin
-      return vel_m_s(float(vel) / 1.9438_4449_24);
+      return vel_m_s(float(vel) / m_s_to_knots);
    end;
    --
    function to_m_s(vel : vel_km_h) return vel_m_s is
    begin
-      return vel_m_s(float(vel) / 3.6);
+      return vel_m_s(float(vel) / m_s_to_km_h);
    end;
    --
    function to_m_s(vel : vel_mph) return vel_m_s is
    begin
-      return vel_m_s(float(vel) / 2.2369_3629_11);
+      return vel_m_s(float(vel) / m_s_to_mph);
    end;
    --
    -- Velocity functions
@@ -236,14 +246,15 @@ package body BBS.units is
    -- -------------------------------------------------------------------------
    -- *** Acceleration conversions ***
    --
+   gravity_to_m_s2 : constant := 9.80665;
    function to_m_s2(accel : accel_g) return accel_m_s2 is
    begin
-      return accel_m_s2(Float(accel) * 9.80665);
+      return accel_m_s2(Float(accel) * gravity_to_m_s2);
    end;
    --
    function to_g(accel : accel_m_s2) return accel_g is
    begin
-      return accel_g(Float(accel) / 9.80665);
+      return accel_g(Float(accel) / gravity_to_m_s2);
    end;
    --
    -- Acceleration functions
@@ -320,7 +331,7 @@ package body BBS.units is
    --
    function to_hz(period : time_s) return freq_hz is
    begin
-      return freq_hz(1.0/Float(period));
+      return freq_hz(1.0 / Float(period));
    end;
    --
    function to_minutes(period : time_s) return time_m is
@@ -335,7 +346,7 @@ package body BBS.units is
    --
    function to_seconds(freq : freq_hz) return time_s is
    begin
-      return time_s(1.0/Float(freq));
+      return time_s(1.0 / Float(freq));
    end;
    --
    function to_seconds(period : time_m) return time_s is

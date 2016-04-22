@@ -382,7 +382,8 @@ package BBS.units with SPARK_Mode => on is
    --
    function to_hz(period : time_s) return freq_hz
      with
-       Global => null;
+       Global => null,
+       pre => (period /= 0.0);
    function to_minutes(period : time_s) return time_m
      with
        Global => null;
@@ -391,7 +392,8 @@ package BBS.units with SPARK_Mode => on is
        Global => null;
    function to_seconds(freq : freq_hz) return time_s
      with
-       Global => null;
+       Global => null,
+       pre => (freq /= 0.0);
    function to_seconds(period : time_m) return time_s
      with
        Global => null;

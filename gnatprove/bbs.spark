@@ -1,0 +1,18 @@
+{
+  "spark": [
+    {
+      "name": "BBS",
+      "sloc": [
+        {
+          "file": "bbs.ads",
+          "line": 60
+        }
+      ],
+      "spark": "all"
+    }
+  ],
+  "flow": [
+  ],
+  "assumptions": [
+  ]
+}

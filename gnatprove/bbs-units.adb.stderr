@@ -1,0 +1,8 @@
+bbs-units.adb:339:14: conversion between different fixed-point types is not yet supported
+bbs-units.adb:339:28: operation between fixed-point type and universal real is not yet supported
+bbs-units.adb:344:14: conversion between different fixed-point types is not yet supported
+bbs-units.adb:344:28: operation between fixed-point type and universal real is not yet supported
+bbs-units.adb:354:14: conversion between different fixed-point types is not yet supported
+bbs-units.adb:354:28: operation between fixed-point type and universal real is not yet supported
+bbs-units.adb:359:14: conversion between different fixed-point types is not yet supported
+bbs-units.adb:359:28: operation between fixed-point type and universal real is not yet supported
