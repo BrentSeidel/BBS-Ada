@@ -329,32 +329,50 @@ package body BBS.units with SPARK_Mode => on is
    -- -------------------------------------------------------------------------
    -- *** Frequency and time conversions ***
    --
-   function to_hz(period : time_s) return freq_hz is
+   function to_hz(period : time_s) return freq_hz
+     with
+       SPARK_Mode => off
+   is
    begin
       return freq_hz(1.0 / Float(period));
    end;
    --
-   function to_minutes(period : time_s) return time_m is
+   function to_minutes(period : time_s) return time_m
+     with
+       SPARK_Mode => off
+   is
    begin
       return time_m(period / 60.0);
    end;
    --
-   function to_hours(period : time_s) return time_h is
+   function to_hours(period : time_s) return time_h
+     with
+       SPARK_Mode => off
+   is
    begin
       return time_h(period / 3600.0);
    end;
    --
-   function to_seconds(freq : freq_hz) return time_s is
+   function to_seconds(freq : freq_hz) return time_s
+     with
+       SPARK_Mode => off
+   is
    begin
       return time_s(1.0 / Float(freq));
    end;
    --
-   function to_seconds(period : time_m) return time_s is
+   function to_seconds(period : time_m) return time_s
+     with
+       SPARK_Mode => off
+   is
    begin
       return time_s(period * 60.0);
    end;
    --
-   function to_seconds(period : time_h) return time_s is
+   function to_seconds(period : time_h) return time_s
+     with
+       SPARK_Mode => off
+   is
    begin
       return time_s(period * 3600.0);
    end;
