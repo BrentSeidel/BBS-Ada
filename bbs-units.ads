@@ -91,19 +91,21 @@ package BBS.units with SPARK_Mode => on is
    type len_m is new Float;
    -- length in feet
    type len_ft is new Float;
-   -- length in Ångstroms
-   type len_Å is new Float;
+   -- length in Ã…ngstroms
+   type len_A is new Float;
    --
-   function to_feet(dist : len_m) return len_ft
+   feet_to_meter : constant := 3.28084;
+   Angstrom_to_meter : constant := 10_000_000_000.0;
+   function to_feet(dist : len_m) return len_ft is (len_ft(float(dist) * feet_to_meter))
      with
        Global => null;
-   function to_Ångstroms(dist : len_m) return len_Å
+   function to_Angstroms(dist : len_m) return len_A is (len_A(Float(dist) * Angstrom_to_meter))
      with
        Global => null;
-   function to_meters(dist : len_ft) return len_m
+   function to_meters(dist : len_ft) return len_m is (len_m(float(dist) / feet_to_meter))
      with
        Global => null;
-   function to_meters(dist : len_Å) return len_m
+   function to_meters(dist : len_A) return len_m is (len_m(dist / Angstrom_to_meter))
      with
        Global => null;
    --
@@ -117,7 +119,7 @@ package BBS.units with SPARK_Mode => on is
    -- area in square meters
    type area_m2 is new Float;
    -- With only one unit, there are no conversion functions.
-   function "*"(Left, Right : len_m) return area_m2
+   function "*"(Left, Right : len_m) return area_m2 is (area_m2(Float(Left) * Float(Right)))
      with
        Global => null;
    --
@@ -128,16 +130,17 @@ package BBS.units with SPARK_Mode => on is
    -- volume in cubic meters
    type vol_m3 is new Float;
    --
-   function to_liters(vol : vol_m3) return vol_l
+   m3_to_liter : constant := 1000.0;
+   function to_liters(vol : vol_m3) return vol_l is (vol_l(vol * m3_to_liter))
      with
        Global => null;
-   function to_meters3(vol : vol_l) return vol_m3
+   function to_meters3(vol : vol_l) return vol_m3 is (vol_m3(vol / m3_to_liter))
      with
        Global => null;
-   function "*"(Left : len_m; Right : area_m2) return vol_m3
+   function "*"(Left : len_m; Right : area_m2) return vol_m3 is (vol_m3(Float(Left) * Float(right)))
      with
        Global => null;
-   function "*"(Left : area_m2; Right : len_m) return vol_m3
+   function "*"(Left : area_m2; Right : len_m) return vol_m3 is (vol_m3(Float(Left) * Float(right)))
      with
        Global => null;
    --
@@ -148,10 +151,11 @@ package BBS.units with SPARK_Mode => on is
    -- mass in pounds
    type mass_lb is new Float;
    --
-   function to_pounds(mass : mass_kg) return mass_lb
+   pound_to_kilogram : constant := 0.4535924;
+   function to_pounds(mass : mass_kg) return mass_lb is (mass_lb(Float(mass) / pound_to_kilogram))
      with
        Global => null;
-   function to_kilograms(mass : mass_lb) return mass_kg
+   function to_kilograms(mass : mass_lb) return mass_kg is (mass_kg(Float(mass) * pound_to_kilogram))
      with
        Global => null;
    --
@@ -185,16 +189,16 @@ package BBS.units with SPARK_Mode => on is
    -- temperature in farenheit
    type temp_f is new Float;
    --
-   function to_Farenheit(temp : temp_c) return temp_f
+   function to_Farenheit(temp : temp_c) return temp_f is (temp_f(float(temp)*9.0/5.0 + 32.0))
      with
        Global => null;
-   function to_Kelvin(temp : temp_c) return temp_k
+   function to_Kelvin(temp : temp_c) return temp_k is (temp_k(float(temp) + 273.15))
      with
        Global => null;
-   function to_Celsius(temp : temp_f) return temp_c
+   function to_Celsius(temp : temp_f) return temp_c is (temp_c(float(temp - 32.0)*5.0/9.0))
      with
        Global => null;
-   function to_Celsius(temp : temp_k) return temp_c
+   function to_Celsius(temp : temp_k) return temp_c is (temp_c(float(temp) - 273.15))
      with
        Global => null;
    --
@@ -209,22 +213,25 @@ package BBS.units with SPARK_Mode => on is
    -- pressure in inches of mercury
    type press_inHg is new Float;
    --
-   function to_milliBar(pressure : press_p) return press_mb
+   millibar_to_pascal : constant := 100.0;
+   atm_to_pascal : constant := 101325.0;
+   inHg_to_pascal : constant := 3386.39;
+   function to_milliBar(pressure : press_p) return press_mb is (press_mb(float(pressure) / millibar_to_pascal))
      with
        Global => null;
-   function to_Atmosphere(pressure : press_p) return press_atm
+   function to_Atmosphere(pressure : press_p) return press_atm is (press_atm(float(pressure) / atm_to_pascal))
      with
        Global => null;
-   function to_inHg(pressure : press_p) return press_inHg
+   function to_inHg(pressure : press_p) return press_inHg is (press_inHg(float(pressure) / inHg_to_pascal))
      with
        Global => null;
-   function to_Pascal(pressure : press_mb) return press_p
+   function to_Pascal(pressure : press_mb) return press_p is (press_p(float(pressure) * millibar_to_pascal))
      with
        Global => null;
-   function to_Pascal(pressure : press_atm) return press_p
+   function to_Pascal(pressure : press_atm) return press_p is (press_p(float(pressure) * atm_to_pascal))
      with
        Global => null;
-   function to_Pascal(pressure : press_inHg) return press_p
+   function to_Pascal(pressure : press_inHg) return press_p is (press_p(float(pressure) * inHg_to_pascal))
      with
        Global => null;
    --
@@ -239,29 +246,32 @@ package BBS.units with SPARK_Mode => on is
    -- velocity in knots
    type vel_knots is new Float;
    --
-   function to_mph(vel : vel_m_s) return vel_mph
+   m_s_to_mph : constant := 2.2369_3629_11;
+   m_s_to_km_h : constant := 3.6;
+   m_s_to_knots : constant := 1.9438_4449_24;
+   function to_mph(vel : vel_m_s) return vel_mph is (vel_mph(float(vel) * m_s_to_mph))
      with
        Global => null;
-   function to_km_h(vel : vel_m_s) return vel_km_h
+   function to_km_h(vel : vel_m_s) return vel_km_h is (vel_km_h(float(vel) * m_s_to_km_h))
      with
        Global => null;
-   function to_knots(vel : vel_m_s) return vel_knots
+   function to_knots(vel : vel_m_s) return vel_knots is (vel_knots(float(vel) * m_s_to_knots))
      with
        Global => null;
-   function to_m_s(vel : vel_knots) return vel_m_s
+   function to_m_s(vel : vel_knots) return vel_m_s is (vel_m_s(float(vel) / m_s_to_knots))
      with
        Global => null;
-   function to_m_s(vel : vel_km_h) return vel_m_s
+   function to_m_s(vel : vel_km_h) return vel_m_s is (vel_m_s(float(vel) / m_s_to_km_h))
      with
        Global => null;
-   function to_m_s(vel : vel_mph) return vel_m_s
+   function to_m_s(vel : vel_mph) return vel_m_s is (vel_m_s(float(vel) / m_s_to_mph))
      with
        Global => null;
    --
-   function "*"(Left : vel_m_s; Right : Duration) return len_m
+   function "*"(Left : vel_m_s; Right : Duration) return len_m is (len_m(Float(Left) * Float(Right)))
      with
        Global => null;
-   function "*"(Left : Duration; Right : vel_m_s) return len_m
+   function "*"(Left : Duration; Right : vel_m_s) return len_m is (len_m(Float(Left) * Float(Right)))
      with
        Global => null;
    function "/"(Left : vel_m_s; Right : Duration) return accel_m_s2
@@ -276,17 +286,18 @@ package BBS.units with SPARK_Mode => on is
    -- acceleration in units of Earth gravity
    type accel_g is new Float;
    --
-   function to_m_s2(accel : accel_g) return accel_m_s2
+   gravity_to_m_s2 : constant := 9.80665;
+   function to_m_s2(accel : accel_g) return accel_m_s2 is (accel_m_s2(Float(accel) * gravity_to_m_s2))
      with
        Global => null;
-   function to_g(accel : accel_m_s2) return accel_g
+   function to_g(accel : accel_m_s2) return accel_g is (accel_g(Float(accel) / gravity_to_m_s2))
      with
        Global => null;
    --
-   function "*"(Left : accel_m_s2; Right : Duration) return vel_m_s
+   function "*"(Left : accel_m_s2; Right : Duration) return vel_m_s is (vel_m_s(Float(Left) * Float(Right)))
      with
        Global => null;
-   function "*"(Left : Duration; Right : accel_m_s2) return vel_m_s
+   function "*"(Left : Duration; Right : accel_m_s2) return vel_m_s is (vel_m_s(Float(Left) * Float(Right)))
      with
        Global => null;
    --
@@ -297,10 +308,10 @@ package BBS.units with SPARK_Mode => on is
    -- angle in degrees
    type ang_d is new Float;
    --
-   function to_degrees(ang : ang_r) return ang_d
+   function to_degrees(ang : ang_r) return ang_d is (ang_d(float(ang) * 180.0 / Ada.Numerics.Pi))
      with
        Global => null;
-   function to_radians(ang : ang_d) return ang_r
+   function to_radians(ang : ang_d) return ang_r is (ang_r(float(ang) * Ada.Numerics.Pi / 180.0))
      with
        Global => null;
    --
@@ -311,17 +322,17 @@ package BBS.units with SPARK_Mode => on is
    -- rotation in degrees per second
    type rot_d_s is new Float;
    --
-   function to_r_s(rot : rot_d_s) return rot_r_s
+   function to_r_s(rot : rot_d_s) return rot_r_s is (rot_r_s(float(rot) * Ada.Numerics.Pi / 180.0))
      with
        Global => null;
-   function to_d_s(rot : rot_r_s) return rot_d_s
+   function to_d_s(rot : rot_r_s) return rot_d_s is (rot_d_s(float(rot) * 180.0 / Ada.Numerics.Pi))
      with
        Global => null;
    --
-   function "*"(Left : rot_d_s; Right : Duration) return ang_d
+   function "*"(Left : rot_d_s; Right : Duration) return ang_d is (ang_d(Float(Left) * Float(Right)))
      with
        Global => null;
-   function "*"(Left : Duration; Right : rot_d_s) return ang_d
+   function "*"(Left : Duration; Right : rot_d_s) return ang_d is (ang_d(Float(Left) * Float(Right)))
      with
        Global => null;
    --
@@ -348,17 +359,17 @@ package BBS.units with SPARK_Mode => on is
    --
    -- Variations of Ohms law
    --
-   function "*"(Left : curr_a; Right : res_o) return emf_v
+   function "*"(Left : curr_a; Right : res_o) return emf_v is (emf_v(Float(Left) * Float(Right)))
      with
        Global => null;
-   function "*"(Left : res_o; Right : curr_a) return emf_v
+   function "*"(Left : res_o; Right : curr_a) return emf_v is (emf_v(Float(Left) * Float(Right)))
      with
        Global => null;
-   function "/"(Left : emf_v; Right : curr_a) return res_o
+   function "/"(Left : emf_v; Right : curr_a) return res_o is (res_o(Float(Left) / Float(Right)))
      with
        Global => null,
        pre => (Right /= 0.0);
-   function "/"(Left : emf_v; Right : res_o) return curr_a
+   function "/"(Left : emf_v; Right : res_o) return curr_a is (curr_a(Float(Left) / Float(Right)))
      with
        Global => null,
        pre => (Right /= 0.0);
@@ -380,24 +391,24 @@ package BBS.units with SPARK_Mode => on is
    -- time in hours
    type time_h is new Duration;
    --
-   function to_hz(period : time_s) return freq_hz
+   function to_hz(period : time_s) return freq_hz is (freq_hz(1.0 / Float(period)))
      with
        Global => null,
        pre => (period /= 0.0);
-   function to_minutes(period : time_s) return time_m
+   function to_minutes(period : time_s) return time_m is (time_m(period / 60.0))
      with
        Global => null;
-   function to_hours(period : time_s) return time_h
+   function to_hours(period : time_s) return time_h is (time_h(period / 3600.0))
      with
        Global => null;
-   function to_seconds(freq : freq_hz) return time_s
+   function to_seconds(freq : freq_hz) return time_s is (time_s(1.0 / Float(freq)))
      with
        Global => null,
        pre => (freq /= 0.0);
-   function to_seconds(period : time_m) return time_s
+   function to_seconds(period : time_m) return time_s is (time_s(period * 60.0))
      with
        Global => null;
-   function to_seconds(period : time_h) return time_s
+   function to_seconds(period : time_h) return time_s is (time_s(period * 3600.0))
      with
        Global => null;
    --
