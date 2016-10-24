@@ -59,6 +59,7 @@
 --
 --
 with Ada.Numerics;
+with Ada.Numerics.Generic_Elementary_Functions;
 package BBS.units with SPARK_Mode => on is
    --
    -- Index of type prefixes:
@@ -234,6 +235,13 @@ package BBS.units with SPARK_Mode => on is
    function to_Pascal(pressure : press_inHg) return press_p is (press_p(float(pressure) * inHg_to_pascal))
      with
        Global => null;
+   --
+   -- Given local pressure and altimeter setting, determine the pressure
+   -- altitude.  Given local pressure and altitude, determine the altimeter
+   -- setting.
+   --
+   function pressure_altitude(pressure : press_p; altm : press_p) return len_m;
+   function altimeter(pressure : press_p; altitude : len_m) return press_p;
    --
    -- Velocity types.  Prefix := "vel".  Base unit is m/s.
    --
