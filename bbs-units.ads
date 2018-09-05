@@ -217,22 +217,28 @@ package BBS.units with SPARK_Mode => on is
    millibar_to_pascal : constant := 100.0;
    atm_to_pascal : constant := 101325.0;
    inHg_to_pascal : constant := 3386.39;
-   function to_milliBar(pressure : press_p) return press_mb is (press_mb(float(pressure) / millibar_to_pascal))
+   function to_milliBar(pressure : press_p) return press_mb is
+     (press_mb(float(pressure) / millibar_to_pascal))
      with
        Global => null;
-   function to_Atmosphere(pressure : press_p) return press_atm is (press_atm(float(pressure) / atm_to_pascal))
+   function to_Atmosphere(pressure : press_p) return press_atm is
+     (press_atm(float(pressure) / atm_to_pascal))
      with
        Global => null;
-   function to_inHg(pressure : press_p) return press_inHg is (press_inHg(float(pressure) / inHg_to_pascal))
+   function to_inHg(pressure : press_p) return press_inHg is
+     (press_inHg(float(pressure) / inHg_to_pascal))
      with
        Global => null;
-   function to_Pascal(pressure : press_mb) return press_p is (press_p(float(pressure) * millibar_to_pascal))
+   function to_Pascal(pressure : press_mb) return press_p is
+     (press_p(float(pressure) * millibar_to_pascal))
      with
        Global => null;
-   function to_Pascal(pressure : press_atm) return press_p is (press_p(float(pressure) * atm_to_pascal))
+   function to_Pascal(pressure : press_atm) return press_p is
+     (press_p(float(pressure) * atm_to_pascal))
      with
        Global => null;
-   function to_Pascal(pressure : press_inHg) return press_p is (press_p(float(pressure) * inHg_to_pascal))
+   function to_Pascal(pressure : press_inHg) return press_p is
+     (press_p(float(pressure) * inHg_to_pascal))
      with
        Global => null;
    --
