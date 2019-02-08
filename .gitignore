@@ -6,8 +6,16 @@
 
 *.db
 
-bbs-loc.xml
+*.xml
 
-bbs.cswi
+*.cswi
+
+*.stderr
+
+*.stdout
+
+*.a
+
+*.lexch
 
 .#bbs-units.adb#

@@ -71,6 +71,12 @@ get furlongs per fortnight, or multiply furlongs per fortnight by fortnights and
 get furlongs back, you will need to do a little extra work.  Look through the
 code for examples.
 
+# Variants
+When building for certain targets (i.e. the Arduino Due), some Ada libraries are unavailable,
+such as Ada.Numerics.  In such a case, include the bbs_raven.gpr project files.  This will
+provide all the conversions, except those that depend on missing feature (currently
+pressure-altitude conversions).
+
 # Copying
 This is free and unencumbered software released into the public domain.
 
