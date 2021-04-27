@@ -1,7 +1,7 @@
 --
 -- Author: Brent Seidel
--- Version: V01.00
--- Date: 5-Jun-2015
+-- Version: V01.01
+-- Date: 27-Apr-2021
 --
 -- This package defines a number of types for physical units.  These are
 -- generally based off of the Float type since in most cases, 6 digits is
@@ -58,13 +58,12 @@
 -- For more information, please refer to <http://unlicense.org>
 --
 package BBS with SPARK_Mode => on is
+   pragma Preelaborate;
+   pragma No_Elaboration_Code_All;
 --
 -- Empty package just so that everything that I make is in the BBS namespace.
 --
 -- This is really trivial so I don't care if anyone copies this.  If you do
 -- though, you should at least change it to your name and initials.
 --
-   author : constant String := "Brent Seidel";
-   version : constant String := "V01.00";
-   date : constant String := "5-Jun-2015";
 end BBS;

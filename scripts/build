@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+#  Build the software.
+#
+echo "Building software"
+scripts/make_info
+gprbuild bbs.gpr

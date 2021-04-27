@@ -407,24 +407,24 @@ package BBS.units with SPARK_Mode => on is
    -- time in hours
    type time_h is new Duration;
    --
-   function to_hz(period : time_s) return freq_hz is (freq_hz(1.0 / Float(period)))
+   function to_hz(period : time_s) return freq_hz is (freq_hz(time_s(1.0) / period))
      with
        Global => null,
        pre => (period /= 0.0);
-   function to_minutes(period : time_s) return time_m is (time_m(period / 60.0))
+   function to_minutes(period : time_s) return time_m is (time_m(period / time_s(60.0)))
      with
        Global => null;
-   function to_hours(period : time_s) return time_h is (time_h(period / 3600.0))
+   function to_hours(period : time_s) return time_h is (time_h(period / time_s(3600.0)))
      with
        Global => null;
-   function to_seconds(freq : freq_hz) return time_s is (time_s(1.0 / Float(freq)))
+   function to_seconds(freq : freq_hz) return time_s is (time_s(freq_hz(1.0) / freq))
      with
        Global => null,
        pre => (freq /= 0.0);
-   function to_seconds(period : time_m) return time_s is (time_s(period * 60.0))
+   function to_seconds(period : time_m) return time_s is (time_s(period * time_m(60.0)))
      with
        Global => null;
-   function to_seconds(period : time_h) return time_s is (time_s(period * 3600.0))
+   function to_seconds(period : time_h) return time_s is (time_s(period * time_h(3600.0)))
      with
        Global => null;
    --

@@ -3,19 +3,14 @@
 
 # Ada Library Information
 *.ali
-
 *.db
-
 *.xml
-
 *.cswi
-
 *.stderr
-
 *.stdout
-
 *.a
-
 *.lexch
+*.gcno
+*.cgpr
 
 .#bbs-units.adb#
