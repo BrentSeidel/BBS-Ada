@@ -58,7 +58,7 @@
 -- For more information, please refer to <http://unlicense.org>
 --
 package BBS with SPARK_Mode => on is
-   pragma Preelaborate;
+   pragma Pure;
    pragma No_Elaboration_Code_All;
 --
 -- Empty package just so that everything that I make is in the BBS namespace.

@@ -61,6 +61,7 @@
 --with Ada.Numerics;
 --with Ada.Numerics.Generic_Elementary_Functions;
 package BBS.units with SPARK_Mode => on is
+   pragma Pure;
    --
    -- Index of type prefixes:
    -- Length types.  Prefix := "len".  Base unit is meters.
