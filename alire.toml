@@ -1,5 +1,5 @@
-name = "BBS-Ada"
-version = "V01.02"
+name = "bbs-ada"
+version = "V01.03"
 description = "Root package for my other projects.  Includes numerous units and conversions"
 authors = "Brent Seidel"
 maintainers = "Brent Seidel <brentseidel@mac.com>"
