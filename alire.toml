@@ -1,0 +1,9 @@
+name = "BBS-Ada"
+version = "V01.02"
+description = "Root package for my other projects.  Includes numerous units and conversions"
+authors = "Brent Seidel"
+maintainers = "Brent Seidel <brentseidel@mac.com>"
+maintainers-logins = "brentseidel"
+licenses = "Unlicense"
+project-files = ["bbs.gpr", "bbs_raven.gpr"]
+
