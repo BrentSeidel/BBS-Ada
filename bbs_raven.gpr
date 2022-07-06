@@ -1,5 +1,7 @@
 project BBS_Raven is
 
+   for Source_Dirs use (".", "src-raven/**");
+
    package Pretty_Printer is
       for Default_Switches ("ada") use ("-i2");
    end Pretty_Printer;
@@ -8,7 +10,7 @@ project BBS_Raven is
       for Vcs_Kind use "git";
    end Ide;
 
-   for Source_Dirs use (".", "src-raven/**");
+   for Main use ("dummy_main1.adb");
 
 end BBS_Raven;
 

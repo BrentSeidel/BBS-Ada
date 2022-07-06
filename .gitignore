@@ -12,5 +12,10 @@
 *.lexch
 *.gcno
 *.cgpr
+*.bexch
+
+# Other files
+b__dummy_main1.*
+dummy_main1
 
 .#bbs-units.adb#

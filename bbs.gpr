@@ -1,5 +1,7 @@
 project BBS is
 
+   for Source_Dirs use (".", "src/**");
+
    package Pretty_Printer is
       for Default_Switches ("ada") use ("-i2");
    end Pretty_Printer;
@@ -8,7 +10,7 @@ project BBS is
       for Vcs_Kind use "git";
    end Ide;
 
-   for Source_Dirs use (".", "src/**");
+   for Main use ("dummy_main1.adb");
 
 end BBS;
 
