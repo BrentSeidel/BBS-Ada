@@ -58,8 +58,8 @@
 -- For more information, please refer to <http://unlicense.org>
 --
 --
-with Ada.Numerics;
-with Ada.Numerics.Generic_Elementary_Functions;
+--with Ada.Numerics;
+--with Ada.Numerics.Generic_Elementary_Functions;
 package BBS.units with SPARK_Mode => on is
    pragma Pure;
    --
@@ -247,8 +247,11 @@ package BBS.units with SPARK_Mode => on is
    -- altitude.  Given local pressure and altitude, determine the altimeter
    -- setting.
    --
-   function pressure_altitude(pressure : press_p; altm : press_p) return len_m;
-   function altimeter(pressure : press_p; altitude : len_m) return press_p;
+   --  These functions are commented out since they require Ada.Numerics.  This
+   --  is not available on all platforms.
+   --
+--   function pressure_altitude(pressure : press_p; altm : press_p) return len_m;
+--   function altimeter(pressure : press_p; altitude : len_m) return press_p;
    --
    -- Velocity types.  Prefix := "vel".  Base unit is m/s.
    --

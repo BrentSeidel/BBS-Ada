@@ -95,16 +95,19 @@ package body BBS.units with SPARK_Mode => on is
    -- altitude.  Given local pressure and altitude, determine the altimeter
    -- setting.
    --
-   function pressure_altitude(pressure : press_p; altm : press_p)
-                              return len_m is
-   begin
-      return len_m(44330.0 * (1.0 - (float(pressure)/float(altm))**float(1.0/5.255)));
-   end;
+   --  These functions are commented out since they require Ada.Numerics.  This
+   --  is not available on all platforms.
    --
-   function altimeter(pressure : press_p; altitude : len_m) return press_p is
-   begin
-      return press_p(float(pressure)/(1.0 - (float(altitude)/44330.0)**float(5.255)));
-   end;
+--   function pressure_altitude(pressure : press_p; altm : press_p)
+--                              return len_m is
+--   begin
+--      return len_m(44330.0 * (1.0 - (float(pressure)/float(altm))**float(1.0/5.255)));
+--   end;
+   --
+--   function altimeter(pressure : press_p; altitude : len_m) return press_p is
+--   begin
+--      return press_p(float(pressure)/(1.0 - (float(altitude)/44330.0)**float(5.255)));
+--   end;
    -- -------------------------------------------------------------------------
    -- *** Velocity conversions ***
    --
