@@ -326,10 +326,12 @@ package BBS.units with SPARK_Mode => on is
    -- angle in degrees
    type ang_d is new Float;
    --
-   function to_degrees(ang : ang_r) return ang_d is (ang_d(float(ang) * 180.0 / Ada.Numerics.Pi))
+   Pi : constant := 3.1415926;
+   --
+   function to_degrees(ang : ang_r) return ang_d is (ang_d(float(ang) * 180.0 / Pi))
      with
        Global => null;
-   function to_radians(ang : ang_d) return ang_r is (ang_r(float(ang) * Ada.Numerics.Pi / 180.0))
+   function to_radians(ang : ang_d) return ang_r is (ang_r(float(ang) * Pi / 180.0))
      with
        Global => null;
    --
@@ -340,10 +342,10 @@ package BBS.units with SPARK_Mode => on is
    -- rotation in degrees per second
    type rot_d_s is new Float;
    --
-   function to_r_s(rot : rot_d_s) return rot_r_s is (rot_r_s(float(rot) * Ada.Numerics.Pi / 180.0))
+   function to_r_s(rot : rot_d_s) return rot_r_s is (rot_r_s(float(rot) * Pi / 180.0))
      with
        Global => null;
-   function to_d_s(rot : rot_r_s) return rot_d_s is (rot_d_s(float(rot) * 180.0 / Ada.Numerics.Pi))
+   function to_d_s(rot : rot_r_s) return rot_d_s is (rot_d_s(float(rot) * 180.0 / Pi))
      with
        Global => null;
    --

@@ -28,9 +28,12 @@ package body BBS.units with SPARK_Mode => on is
    --
    -- Get elementary math functions for floating point numbers
    --
-   package float_functions is new Ada.Numerics.Generic_Elementary_Functions(float);
-   function "**"(Left, Right : float) return float
-                 renames float_functions."**";
+   --  These functions are commented out since they require Ada.Numerics.  This
+   --  is not available on all platforms.
+   --
+--   package float_functions is new Ada.Numerics.Generic_Elementary_Functions(float);
+--   function "**"(Left, Right : float) return float
+--                 renames float_functions."**";
    --
    -- Since the conversion and operation routines are so simple, most have been
    -- converted to expression functions.  Occasionally, one may be left here
