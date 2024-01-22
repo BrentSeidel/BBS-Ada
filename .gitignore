@@ -13,6 +13,7 @@
 *.gcno
 *.cgpr
 *.bexch
+*.exe
 
 # Other files
 b__dummy_main1.*
