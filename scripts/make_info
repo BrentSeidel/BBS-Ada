@@ -14,8 +14,8 @@ package BBS.info is
    name           : constant String  := "BBS Root";
    timestamp      : constant String  := "`date`";
    build_date     : constant String  := "`date +"%Y-%b-%d"`";
-   version_string : constant String  := "V01.04";
+   version_string : constant String  := "V01.05";
    version_date   : constant Integer := `date +"%Y%m%d"`;  -- yyyymmdd
-   version_number : constant Integer := 3;
+   version_number : constant Integer := 4;
 end;
 EOF
