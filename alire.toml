@@ -1,10 +1,9 @@
-name = "bbs_ada"
-version = "01.04"
+name = "bbsroot"
 description = "Root package for my other projects."
-long-description = "Includes some physical units, operations, and conversions."
-authors = "Brent Seidel"
-maintainers = "Brent Seidel <brentseidel@mac.com>"
-maintainers-logins = "brentseidel"
+version = "0.1.0-dev"
 licenses = "Unlicense"
-project-files = ["bbs.gpr", "bbs_raven.gpr"]
+project-files = ["bbs.gpr"]
 
+authors = ["Brent Seidel"]
+maintainers = ["Brent Seidel <brentseidel@mac.com>"]
+maintainers-logins = ["BrentSeidel"]

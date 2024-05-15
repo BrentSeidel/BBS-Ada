@@ -12,6 +12,12 @@ library project BBS is
    package Ide is
       for Vcs_Kind use "git";
    end Ide;
+   package builder is
+      for switches ("Ada") use ("-s");
+   end builder;
+   package compiler is
+      for switches ("Ada") use ("-g", "-gnateE", "-gnata");
+   end compiler;
 
 end BBS;
 
