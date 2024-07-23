@@ -15,6 +15,14 @@
 *.bexch
 *.exe
 
+# LaTeX working files
+doc/*.aux
+doc/*.log
+doc/*.synctex.gz
+doc/*.toc
+doc/*.bbl
+doc/*.blg
+
 # Other files
 b__dummy_main1.*
 dummy_main1

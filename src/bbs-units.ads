@@ -57,9 +57,6 @@
 --
 -- For more information, please refer to <http://unlicense.org>
 --
---
---with Ada.Numerics;
---with Ada.Numerics.Generic_Elementary_Functions;
 package BBS.units with SPARK_Mode => on is
    pragma Pure;
    --
@@ -402,7 +399,7 @@ package BBS.units with SPARK_Mode => on is
    -- hours) are derivative types so as to maintain similar precision.  If needed,
    -- they could be changed to Float or something else.
    --
-   -- frequency in Herts
+   -- frequency in Hertz
    type freq_hz is new Float;
    -- time in seconds (use subtype because seconds is identical to duration)
    subtype time_s is Duration;
