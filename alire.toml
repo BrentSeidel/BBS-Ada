@@ -1,10 +1,10 @@
 name = "bbs"
 description = "Root package for other crates and contains some physical units"
-version = "0.1.0-dev"
+version = "0.1.0"
 
 authors = ["Brent Seidel"]
 maintainers = ["Brent Seidel <brentseidel@mac.com>"]
 maintainers-logins = ["BrentSeidel"]
 licenses = "0BSD"
 website = "https://github.com/BrentSeidel/BBS-Ada"
-tags = []
+tags = ["units"]
