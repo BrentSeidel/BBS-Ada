@@ -1,9 +1,10 @@
-name = "bbsroot"
-description = "Root package for my other projects."
+name = "bbs"
+description = "Root package for other crates and contains some physical units"
 version = "0.1.0-dev"
-licenses = "Unlicense"
-project-files = ["bbs.gpr"]
 
 authors = ["Brent Seidel"]
 maintainers = ["Brent Seidel <brentseidel@mac.com>"]
 maintainers-logins = ["BrentSeidel"]
+licenses = "0BSD"
+website = "https://github.com/BrentSeidel/BBS-Ada"
+tags = []

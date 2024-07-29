@@ -28,3 +28,7 @@ b__dummy_main1.*
 dummy_main1
 
 .#bbs-units.adb#
+/obj/
+/lib/
+/alire/
+/config/
