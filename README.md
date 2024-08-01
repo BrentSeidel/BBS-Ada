@@ -6,6 +6,9 @@ projects will be bbs.<something>.
 This repository also contains some basic packages that are used by multiple other
 projects.  Currently, the following packages are included.
 
+[![Alire](https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/bbs.json)]
+(https://alire.ada.dev/crates/bbs.html)
+
 # BBS-units
 This package contains definitions and conversions for various physical units.
 The definitions are based off of Float which gives adequate precision for most
